@@ -1,7 +1,7 @@
 # SafePi
 SafePi is a Python based tracking tool for Safemoon, aimed to be run on a Raspberry Pi with GPIO displays. It connects to gate.io and pulls your Safemoon balance from BscScan.
 
-![alt text](https://github.com/aCallum/NicePi/blob/main/safepi.jpg)
+![alt text](https://github.com/aCallum/SafePi/blob/main/safepi.jpg)
 
 ## Support Me
 

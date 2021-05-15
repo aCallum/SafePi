@@ -25,7 +25,7 @@ def lerp(a, b, t):
     return a + (b-a) * clamp(t, 0, 1)
 
 def get_bscscan_balance():
-    url = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress={0}&address={1}&tag=latest&apikey={2}".format(config.SAFEMOON_CONTRACT_ADDRESS, config.BSCSCAN_ADDRESS, config.BSCSCAN_API_KEY)
+    url = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress={0}&address={1}&tag=latest&apikey={2}".format(config.SAFEMOON_CONTRACT_ADDRESS, config.WALLET_ADDRESS, config.BSCSCAN_API_KEY)
     return (float)(requests.get(url).json()["result"]) * 0.000000001
 
 if config.RUN_EMULATOR:
@@ -88,7 +88,6 @@ def update_data():
 
     previousBalance = currentBalance
     currentBalance = get_bscscan_balance()
-    currentBalance += 100000000
 
     ticker = exchange.fetch_ticker("SAFEMOON/USDT")
 

@@ -145,8 +145,8 @@ while True:
         draw.text((1, 9), "S", fill='white', font=safemoonFont_large)
         draw.text((15, 7), "{:,.2f}".format(lerp(previousBalance, currentBalance, timeDelta)), fill="white", font=balanceFont)
 
-        draw.text((0, 32-8), "=£", fill='white', font=currencyFont)
-        draw.text((12, 32-6), "{:,.2f} @ S{:,.9f}".format((lerp(previousBalance, currentBalance, timeDelta) * lerp(previousRate, currentRate, timeDelta)) * 0.70918265, lerp(previousRate, currentRate, timeDelta)), fill='white', font=titleFont)   
+        draw.text((0, 32-8), "=" + config.LOCAL_CURRENCY_SYMBOL, fill='white', font=currencyFont)
+        draw.text((12, 32-6), "{:,.2f} @ S{:,.9f}".format((lerp(previousBalance, currentBalance, timeDelta) * lerp(previousRate, currentRate, timeDelta)) * config.LOCAL_CURRENCY, lerp(previousRate, currentRate, timeDelta)), fill='white', font=titleFont)   
 
     if screenToShow == 2:
 

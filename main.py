@@ -141,7 +141,7 @@ while True:
         
         canvas = Image.new(imageEncoding, (frameSize))
         draw = ImageDraw.Draw(canvas)
-        draw.text((0, -1), "Safemoon Balance", fill='white', font=titleFont)
+        draw.text((0, -1), "SafeMoon Balance", fill='white', font=titleFont)
         draw.text((1, 9), "S", fill='white', font=safemoonFont_large)
         draw.text((15, 7), "{:,.2f}".format(lerp(previousBalance, currentBalance, timeDelta)), fill="white", font=balanceFont)
 

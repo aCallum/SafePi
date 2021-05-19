@@ -49,6 +49,7 @@ while (time.time() - startTime) < 10:
         cv2.imshow('HashAPI', frameBGR)
         k = cv2.waitKey(16) & 0xFF
         if k == 27:
+            # Add IP to screen here
             break
     else:
         # Hardware display

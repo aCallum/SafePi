@@ -35,7 +35,7 @@ frameSize = (128, 32)
 
 startTime = time.time()
 
-while (time.time() - startTime) > 10:
+while (time.time() - startTime) < 10:
 
     canvas = Image.new(imageEncoding, (frameSize))
     image = Image.open('images/safe_logo.bmp').convert(imageEncoding)

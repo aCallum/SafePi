@@ -1,6 +1,7 @@
 import config
 import time
 import numpy as np
+import subprocess
 
 if config.RUN_EMULATOR:
     import cv2
@@ -32,7 +33,7 @@ else:
     disp.display()  
 
 frameSize = (128, 32)
-
+titleFont = ImageFont.truetype("fonts/04B_03__.TTF", 8)
 startTime = time.time()
 
 while (time.time() - startTime) < 10:
@@ -49,7 +50,6 @@ while (time.time() - startTime) < 10:
         cv2.imshow('HashAPI', frameBGR)
         k = cv2.waitKey(16) & 0xFF
         if k == 27:
-            # Add IP to screen here
             break
     else:
         # Hardware display
@@ -61,5 +61,9 @@ if config.RUN_EMULATOR:
     # Virtual display
     cv2.destroyAllWindows()
 else:
-    # Hardware display
-    pass
+    cmd = "hostname -I | cut -d\' \' -f1"
+    ip = str(subprocess.check_output(cmd, shell = True)).replace("b'"," ").replace("\\n'", "")
+    draw = ImageDraw.Draw(canvas)
+    draw.text((-1, 25), str(ip), fill='white', font=titleFont)
+    disp.image(canvas)
+    disp.display()

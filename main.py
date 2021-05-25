@@ -28,6 +28,10 @@ def get_bscscan_balance():
     url = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress={0}&address={1}&tag=latest&apikey={2}".format(config.SAFEMOON_CONTRACT_ADDRESS, config.WALLET_ADDRESS, config.BSCSCAN_API_KEY)
     return (float)(requests.get(url).json()["result"]) * 0.000000001
 
+def get_exchange_rate():
+    url = "https://free.currconv.com/api/v7/convert?q=USD_{0}&compact=ultra&apiKey=324712ba3ce941d0593c".format(config.LOCAL_CURRENCY_SYMBOL)
+    return (float)(requests.get(url).json()["USD_{0}".format(config.LOCAL_CURRENCY_SYMBOL)])
+
 if config.RUN_EMULATOR:
     imageEncoding = 'RGB'
 else:
@@ -74,7 +78,6 @@ displayTime = 60/3
 screenToShow = 0
 
 exchange = ccxt.gateio()
-ticker = exchange.fetch_ticker("SAFEMOON/USDT")
 
 def update_data():
     global previousBalance
@@ -87,9 +90,16 @@ def update_data():
     global currentPerc
 
     previousBalance = currentBalance
-    currentBalance = get_bscscan_balance()
+    try:
+        currentBalance = get_bscscan_balance()
+    except:
+        currentBalance = previousBalance
+        pass
 
-    ticker = exchange.fetch_ticker("SAFEMOON/USDT")
+    try:
+        ticker = exchange.fetch_ticker("SAFEMOON/USDT")
+    except:
+        pass
 
     previousRate = currentRate        
     currentRate = (float)(ticker['info']['last'])
@@ -98,6 +108,8 @@ def update_data():
     currentPerc = (float)(ticker['info']['percentChange'])
 
 update_data()
+
+localExchange = get_exchange_rate()
 
 while True:
 
@@ -141,12 +153,12 @@ while True:
         
         canvas = Image.new(imageEncoding, (frameSize))
         draw = ImageDraw.Draw(canvas)
-        draw.text((0, -1), "SafeMoon Balance", fill='white', font=titleFont)
+        draw.text((0, -1), "SafeMoon Balance (" + config.LOCAL_CURRENCY_SYMBOL + ")", fill='white', font=titleFont)
         draw.text((1, 9), "S", fill='white', font=safemoonFont_large)
         draw.text((15, 7), "{:,.2f}".format(lerp(previousBalance, currentBalance, timeDelta)), fill="white", font=balanceFont)
 
-        draw.text((0, 32-8), "=" + config.LOCAL_CURRENCY_SYMBOL, fill='white', font=currencyFont)
-        draw.text((12, 32-6), "{:,.2f} @ S{:,.9f}".format((lerp(previousBalance, currentBalance, timeDelta) * lerp(previousRate, currentRate, timeDelta)) * config.LOCAL_CURRENCY, lerp(previousRate, currentRate, timeDelta)), fill='white', font=titleFont)   
+        draw.text((0, 32-8), "=" + config.LOCAL_CURRENCY_CHAR, fill='white', font=currencyFont)
+        draw.text((12, 32-6), "{:,.2f} @ S{:,.9f}".format((lerp(previousBalance, currentBalance, timeDelta) * lerp(previousRate, currentRate, timeDelta)) * localExchange, lerp(previousRate, currentRate, timeDelta) * localExchange), fill='white', font=titleFont)   
 
     if screenToShow == 2:
 

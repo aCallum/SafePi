@@ -12,9 +12,11 @@ BTC Donations Welcome: 3Fy8MVbx35zMrBnTP6rJt1Cb7fwS4NacvA
 Or buy me a coffee: https://ko-fi.com/aCallum
 
 ### Prerequisites:
+This project was built using a Waveshare OLED Display which uses the SSD1306 drivers in Python. It is possible to run on other OLED displays (eg Adafruit), but you will need to locate and integrate the device specific drivers manually.
+
 1. Almost any RaspberryPi (with GPIO support):
     - https://thepihut.com/collections/raspberry-pi/products/raspberry-pi-zero-wh-with-pre-soldered-header
-2. Any SPI/I2C GPIO display:
+2. A SPI/I2C GPIO display (Using the SSD1306 Device Driver):
     - https://thepihut.com/collections/raspberry-pi-screens/products/128x32-2-23inch-oled-display-hat-for-raspberry-pi
 3. SD Card 8GB or higher -- image it with Raspberry Pi OS Lite
 4. Power Cable & Charger/Battery Bank

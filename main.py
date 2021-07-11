@@ -109,7 +109,10 @@ def update_data():
 
 update_data()
 
-localExchange = get_exchange_rate()
+try:
+    localExchange = get_exchange_rate()
+except:
+    localExchange = 1
 
 while True:
 
@@ -143,7 +146,7 @@ while True:
 
         draw = ImageDraw.Draw(canvas)
         draw.text((32, 11), "SAFEMOON", fill='white', font=splashFont)
-        draw.text((72, 32-9), "Tracker (v0.1)", fill='white', font=titleFont)
+        draw.text((70, 32-9), "Tracker (v0.2)", fill='white', font=titleFont)
 
         if (time.time() - startTime) > 8:
             startTime = time.time()
